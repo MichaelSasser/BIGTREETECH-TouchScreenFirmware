@@ -19,7 +19,7 @@
 #define ST7920_FNCOLOR GREEN
 
 // Text displayed at the top of the LCD in Marlin Mode.
-//#define ST7920_BANNER_TEXT "LCD12864 Simulator"
+#define ST7920_BANNER_TEXT "Ender 3 Pro - Marlin Mode"
 
 // Run Marlin Mode fullscreen. Not recommended for TFT24.
 //#define ST7920_FULLSCREEN
@@ -43,12 +43,12 @@
 #define EXTRUDER_NUM 1    // set in 1~6
 #define FAN_NUM      1    // set in 1~6
 
-//                       PLA      PETG       ABS
-#define PREHEAT_BED      {60,      70,       100}
-#define PREHEAT_HOTEND   {200,     250,      230}
-#define PREHEAT_TEXT     {"PLA",  "PETG",   "ABS"}
+//                       PLA       PETG    TPU     Nylon     PC     PP      Carbon    ASA     Metal     Wood
+#define PREHEAT_BED      {60,      70,     60,     110,      120,   120,    60,       110,    60,       60}
+#define PREHEAT_HOTEND   {215,     245,    240,    265,      285,   245,    225,      235,    210,      215}  
+#define PREHEAT_TEXT     {"PLA",  "PETG",  "TPU",  "Nylon",  "PC",  "PP",  "Carbon",  "ASA",  "METAL",  "Wood"}
 
-#define HEAT_MAX_TEMP    {150,    275,       275,       275,       275,       275,       275}    //max temperature can be set
+#define HEAT_MAX_TEMP    {125,    285,       275,       275,       275,       275,       275}    //max temperature can be set
 #define HEAT_SIGN_ID     {"B:",   "T0:",     "T1:",     "T2:",     "T3:",     "T4:",     "T5:"}
 #define HEAT_DISPLAY_ID  {"Bed",  "T0",      "T1",      "T2",      "T3",      "T4",      "T5"}
 #define HEAT_CMD         {"M140", "M104 T0", "M104 T1", "M104 T2", "M104 T3", "M104 T4", "M104 T5" };
@@ -63,35 +63,41 @@
 
 #define SPEED_ID         {"Sp.", "Fr."}
 
-// Default move speed mm/min
-#define DEFAULT_SPEED_MOVE      3000
-#define SPEED_MOVE_SLOW         1000
-#define SPEED_MOVE_FAST         5000
+// Default move speed mm/min in X/Y
+#define DEFAULT_SPEED_MOVE      100*60
+#define SPEED_MOVE_SLOW         100*60
+#define SPEED_MOVE_FAST         500*60
+
+// Default move speed mm/min in Z
+#define DEFAULT_SPEED_MOVE      5*60
+#define SPEED_MOVE_SLOW         5*60
+#define SPEED_MOVE_FAST         5*60
+
 // Extrude speed mm/min
-#define EXTRUDE_SLOW_SPEED      60
-#define EXTRUDE_NORMAL_SPEED    600
-#define EXTRUDE_FAST_SPEED      1200
+#define EXTRUDE_SLOW_SPEED      1*60
+#define EXTRUDE_NORMAL_SPEED    10*60
+#define EXTRUDE_FAST_SPEED      25*60
 
 // Size of machine
 #define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define Y_MIN_POS -40
 #define Z_MIN_POS 0
 #define X_MAX_POS 235
-#define Y_MAX_POS 235
+#define Y_MAX_POS 180
 #define Z_MAX_POS 250
 
 // Specify a pause position as { X, Y, Z_raise }
-#define NOZZLE_PAUSE_RETRACT_LENGTH 15   // (mm)
-#define NOZZLE_RESUME_PURGE_LENGTH  16   // (mm)
+#define NOZZLE_PAUSE_RETRACT_LENGTH 2   // (mm)
+#define NOZZLE_RESUME_PURGE_LENGTH  3   // (mm)
 #define NOZZLE_PAUSE_X_POSITION     (X_MIN_POS + 10)  // (mm) Must be an integer
 #define NOZZLE_PAUSE_Y_POSITION     (Y_MIN_POS + 10)  // (mm) Must be an integer
 #define NOZZLE_PAUSE_Z_RAISE        20   // (mm)
-#define NOZZLE_PAUSE_E_FEEDRATE     6000 // (mm/min) retract & purge feedrate
-#define NOZZLE_PAUSE_XY_FEEDRATE    6000 // (mm/min) X and Y axes feedrate
-#define NOZZLE_PAUSE_Z_FEEDRATE     600  // (mm/min) Z axis feedrate
+#define NOZZLE_PAUSE_E_FEEDRATE     EXTRUDE_NORMAL_SPEED // (mm/min) retract & purge feedrate
+#define NOZZLE_PAUSE_XY_FEEDRATE    SPEED_MOVE_SLOW // (mm/min) X and Y axes feedrate
+#define NOZZLE_PAUSE_Z_FEEDRATE     EXTRUDE_NORMAL_SPEED  // (mm/min) Z axis feedrate
 
 // Send G29 for auto bed leveling
-#define AUTO_BED_LEVELING
+//#define AUTO_BED_LEVELING
 #ifdef AUTO_BED_LEVELING
   // Enable this will send "M500" after "G29" to store leveling value
   // and send "M420 S1" to enable leveling state after startup
@@ -129,7 +135,7 @@
 
 // Invert the Y Axis move Direction
 // this does not work if LIST MODE is enabled. To invert y axis in LIST MODE go to setting->feature settings
-//#define INVERT_YAXIS
+#define INVERT_YAXIS
 
 //Invert the Z Axis move Direction
 // this does not work if LIST MODE is enabled. To invert z axis in LIST MODE go to setting->feature settings
@@ -137,7 +143,7 @@
 
 // Enable Unified Move Menu
 // Move, Home, Extrude, ABL at one Place and bring Gcode Menu on Home Menu
-//#define UNIFIED_MENU
+#define UNIFIED_MENU
 
 /**
  * Enable list mode in Files menu and settings menu
@@ -177,7 +183,7 @@
   * When enable automatic shutdown(Auto Power), when the hotend temperature is higher than this value
   * turn on the fan to cool down, wait for the hotend temperature to be lower than this value, then turn off the power automatically
   */
-#define AUTO_SHUT_DOWN_MAXTEMP 50
+#define AUTO_SHUT_DOWN_MAXTEMP 40
 
 #define EXTRUDE_STEPS  100.0f
 
